@@ -5,6 +5,18 @@
 {% block title %}{{ listing.title }}{% endblock %}
 
 {% block content %}
+    <!-- Inside the detail.html file -->
+<div class="container">
+    <!-- ... existing code ... -->
+    {% if user.is_authenticated %}
+        {% if request.user == listing.agent or request.user.is_superuser %}
+            <div class="mt-4">
+                <a href="{% url 'listings:update' listing.id %}" class="btn btn-warning">Edit Listing</a>
+                <a href="{% url 'listings:delete' listing.id %}" class="btn btn-danger">Delete Listing</a>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
 <div class="container-fluid px-0">
     <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -57,7 +69,7 @@
                             <small class="text-muted">Realtor</small>
                         </div>
                     </div>
-                    <a href="#" class="btn btn-primary btn-sm w-100">Contact Agent</a>
+                    <a  href="{% url 'listings:contact_agent' listing.id %}" class="btn btn-primary btn-sm w-100">Contact Agent</a>
                 </div>
             </div>
 

@@ -10,6 +10,10 @@
                     <a class="nav-link" href="{% url 'listings:index' %}">Listings</a>
                 </li>
                 {% if user.is_authenticated %}
+                    <!-- New Create Listing Link -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'listings:add' %}">Create Listing</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
                     </li>

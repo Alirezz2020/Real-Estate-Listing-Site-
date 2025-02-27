@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">
+            <h3>Contact Agent</h3>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">{{ agent.get_full_name }}</h4>
+            <p>Email: {{ agent.email }}</p>
+            <p>Phone: {{ agent.profile.phone }}</p> <!-- Ensure User has a phone field or adjust accordingly -->
+            <p>Address: {{ agent.profile.address }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

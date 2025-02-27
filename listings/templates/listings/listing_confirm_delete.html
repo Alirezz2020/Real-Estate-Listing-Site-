@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Delete Listing{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Are you sure you want to delete "{{ object.title }}"?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <a href="{% url 'listings:detail' object.id %}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+    </form>
+</div>
+{% endblock %}

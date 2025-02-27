@@ -32,15 +32,14 @@
     </div>
 </section>
 
+
 <section class="search bg-light py-5">
     <div class="container">
         <h2 class="text-center mb-4">Find Your Perfect Home</h2>
-        <form method="get" action="{% url 'listings:search' %}" class="form-inline justify-content-center">
-            <div class="input-group">
-                <input type="text" class="form-control form-control-lg" name="q" placeholder="Search by city or address">
-                <button class="btn btn-primary btn-lg" type="submit">Search</button>
-            </div>
-        </form>
+       <form method="get" action="{% url 'listings:search' %}" class="d-flex">
+    <input type="text" class="form-control" name="q" placeholder="Search by city or address" value="{{ request.GET.q }}">
+    <button type="submit" class="btn btn-outline-success">Search</button>
+</form>
     </div>
 </section>
 

@@ -5,8 +5,8 @@
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/Alirezz2020/Online-Learning-Platform-.git
-   cd Online-Learning-Platform-
+   git clone https://github.com/Alirezz2020/Real-Estate-Listing-Site-.git
+   cd RealEstateListingSite
 2. **Set Up a Virtual Environment:**
     ```sh
    python -m venv venv

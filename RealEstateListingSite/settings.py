@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'listings.apps.ListingsConfig',
     'django.contrib.humanize',
+    'django_filters',
 
 ]
 

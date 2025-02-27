@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container">
     <h1>Search Results</h1>
-    <form method="get" action="{% url 'listings:search' %}" id="search-form">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" name="q" placeholder="Search listings..." value="{{ query }}">
-            <button class="search-btn btn btn-primary">Search</button>
-        </div>
-    </form>
-    {% for listing in listings %}
-        <!-- Listing card -->
-    {% endfor %}
+    {% if listings %}
+        {% for listing in listings %}
+            <div class="card mb-4">
+                <img src="{{ listing.main_image.url }}" class="card-img-top">
+                <div class="card-body">
+                    <h5>{{ listing.title }}</h5>
+                    <p>{{ listing.city }}, {{ listing.address }}</p>
+                    <a href="{% url 'listings:detail' listing.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No listings found matching your query.</p>
+    {% endif %}
+</div>
 {% endblock %}

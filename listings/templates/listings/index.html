@@ -15,6 +15,15 @@
         </nav>
     </div>
 </header>
+<section class="search bg-light py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Find Your Perfect Home</h2>
+       <form method="get" action="{% url 'listings:search' %}" class="d-flex">
+    <input type="text" class="form-control" name="q" placeholder="Search by city or address" value="{{ request.GET.q }}">
+    <button type="submit" class="btn btn-outline-success">Search</button>
+</form>
+    </div>
+</section>
 
 <section class="listings py-5">
     <div class="container">

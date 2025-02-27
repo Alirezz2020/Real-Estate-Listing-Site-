@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}{% if object %}Update Listing{% else %}Create Listing{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{% if object %}Update Listing{% else %}Create Listing{% endif %}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <label for="id_gallery_images">Additional Images (Gallery):</label>
+        {{ form.gallery_images }}
+        <button type="submit" class="btn btn-primary mt-4">
+            {% if object %}Save Changes{% else %}Create Listing{% endif %}
+        </button>
+    </form>
+</div>
+{% endblock %}
