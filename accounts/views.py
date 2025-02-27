@@ -111,7 +111,8 @@ class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
     model = Profile
-    fields = ['first_name', 'last_name', 'profile_picture']  # adjust these fields
+    fields = ['first_name', 'last_name', 'profile_picture',  'phone_number', 'address', 'agency_name',
+            'contact_email',]  # adjust these fields
     template_name = "accounts/edit_profile.html"
     success_url = reverse_lazy('accounts:profile')
 

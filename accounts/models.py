@@ -13,6 +13,10 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     profile_picture = models.ImageField(upload_to=profile_picture_upload_path, null=True, blank=True)
+    phone_number = models.CharField(max_length=15, blank=True, verbose_name="Contact Phone")
+    address = models.CharField(max_length=150, blank=True, verbose_name="Physical Address")
+    agency_name = models.CharField(max_length=100, blank=True, verbose_name="Agency Name")
+    contact_email = models.EmailField(blank=True, null=True, verbose_name="Primary Email")
 
     def save(self, *args, **kwargs):
         if not self.unique_id:

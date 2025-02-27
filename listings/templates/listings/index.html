@@ -1,100 +1,70 @@
+
+
 {% extends 'base.html' %}
 {% load humanize %}
-{% load static %}
-
-{% block title %}Explore Listings{% endblock %}
 
 {% block content %}
-<header class="py-5">
-    <div class="container">
-        <h1 class="display-5">Search and Discover</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">All Listings</li>
-            </ol>
-        </nav>
-    </div>
-</header>
-<section class="search bg-light py-5">
-    <div class="container">
-        <h2 class="text-center mb-4">Find Your Perfect Home</h2>
-       <form method="get" action="{% url 'listings:search' %}" class="d-flex">
-    <input type="text" class="form-control" name="q" placeholder="Search by city or address" value="{{ request.GET.q }}">
-    <button type="submit" class="btn btn-outline-success">Search</button>
-</form>
-    </div>
-</section>
-
-<section class="listings py-5">
-    <div class="container">
+<div class="container">
+    <!-- Search & Filter Form -->
+    <form method="get" class="mb-4">
         <div class="row">
-            {% for listing in listings %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 shadow">
-                    <a href="{% url 'listings:detail' listing.id %}">
-                        <img src="{{ listing.main_image.url }}" class="card-img-top" alt="{{ listing.title }}">
-                    </a>
+            <div class="col-md-3">
+                <input type="text" class="form-control" name="q" placeholder="Search by city or address" value="{{ query }}">
+            </div>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="min_price" placeholder="Min Price" value="{{ min_price }}">
+            </div>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="max_price" placeholder="Max Price" value="{{ max_price }}">
+            </div>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="bedrooms" placeholder="Bedrooms" value="{{ bedrooms }}">
+            </div>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="bathrooms" placeholder="Bathrooms" value="{{ bathrooms }}">
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Listings Grid -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for listing in listings %}
+            <div class="col mb-4">
+                <div class="card h-100">
+                    <img src="{{ listing.main_image.url }}" class="card-img-top" alt="{{ listing.title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ listing.title }}</h5>
-                        <p class="card-text text-muted">{{ listing.city }}, {{ listing.address }}</p>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h5>${{ listing.price | intcomma }}</h5>
-                            <div class="badge bg-info text-dark">{{ listing.bedrooms }}B | {{ listing.bathrooms | floatformat:"0" }}Ba</div>
-                        </div>
+                        <p class="card-text">{{ listing.city }}, {{ listing.address }}</p>
+                        <p class="card-text">$ {{ listing.price | intcomma }}</p>
+                        <a href="{% url 'listings:detail' listing.id %}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
-</section>
 
-{% if is_paginated %}
-<nav class="pagination justify-content-center">
-    <ul class="pagination">
-        {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-            </li>
-        {% endif %}
-
-        {% for num in paginator.page_range %}
-            {% if page_obj.number == num %}
-                <li class="page-item active">
-                    <a class="page-link" href="#">{{ num }}</a>
-                </li>
-            {% else %}
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    <a class="page-link" href="?q={{ query }}&min_price={{ min_price }}&max_price={{ max_price }}&bedrooms={{ bedrooms }}&bathrooms={{ bathrooms }}&page={{ page_obj.previous_page_number }}">Previous</a>
                 </li>
             {% endif %}
-        {% endfor %}
-
-        {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-            </li>
-        {% endif %}
-    </ul>
-</nav>
-{% endif %}
-
-<style>
-    .listings .card {
-        transition: box-shadow 0.3s;
-    }
-
-    .listings .card:hover {
-        box-shadow: 0 6px 12px rgba(0,0,0,0.16);
-    }
-
-    .pagination .page-link {
-        color: #34495e;
-    }
-
-    .pagination .page-link:hover {
-        background-color: #f8f9fa;
-        color: #2c3e50;
-    }
-</style>
+            {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+                    <a class="page-link" href="?q={{ query }}&min_price={{ min_price }}&max_price={{ max_price }}&bedrooms={{ bedrooms }}&bathrooms={{ bathrooms }}&page={{ num }}">{{ num }}</a>
+                </li>
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?q={{ query }}&min_price={{ min_price }}&max_price={{ max_price }}&bedrooms={{ bedrooms }}&bathrooms={{ bathrooms }}&page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
 {% endblock %}

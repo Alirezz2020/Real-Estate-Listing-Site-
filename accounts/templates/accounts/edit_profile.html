@@ -1,21 +1,39 @@
-{% extends "base.html" %}
-{% load static %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-{% endblock %}
-
+{% extends 'base.html' %}
 {% block content %}
-<div class="edit-profile-container">
-  <h2>Edit Your Profile</h2>
-  <form method="post" enctype="multipart/form-data" novalidate>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Save Changes</button>
-  </form>
-</div>
-{% endblock %}
+<div class="container">
+    <h1>Edit Profile</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_phone_number" class="form-label">Phone Number</label>
+            {{ form.phone_number }}
+        </div>
+        <div class="mb-3">
+            <label for="id_phone_number" class="form-label"> Name</label>
+            {{ form.first_name }}
+        </div> <div class="mb-3">
+            <label for="id_phone_number" class="form-label">Last Name</label>
+            {{ form.last_name }}
+        </div>
+        <div class="mb-3">
+            <label for="id_address" class="form-label">Physical Address</label>
+            {{ form.address }}
+        </div>
+        <div class="mb-3">
+            <label for="id_agency_name" class="form-label">Agency Name</label>
+            {{ form.agency_name }}
+        </div>
+        <div class="mb-3">
+            <label for="id_contact_email" class="form-label">Primary Email</label>
+            {{ form.contact_email }}
+        </div>
 
-{% block extra_js %}
-<script src="{% static 'js/script.js' %}"></script>
+        <div class="mb-3">
+            <label for="id_profile_picture" class="form-label">Profile Picture</label>
+            {{ form.profile_picture }}
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
 {% endblock %}

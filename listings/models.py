@@ -11,6 +11,7 @@ class Listing(models.Model):
     bathrooms = models.DecimalField(max_digits=2, decimal_places=1)
     main_image = models.ImageField(upload_to='listings/')
     agent = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    phone_number = models.CharField(max_length=15, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -25,14 +26,6 @@ class Gallery(models.Model):
 
     def __str__(self):
         return f"Image for {self.listing.title}"
-
-from django.db import models
-from django.contrib.auth.models import User
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=20, blank=True)
-    address = models.CharField(max_length=150, blank=True)
 
 
 

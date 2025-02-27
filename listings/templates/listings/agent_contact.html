@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <div class="container">
-    <div class="card shadow mb-4">
-        <div class="card-header bg-primary text-white">
-            <h3>Contact Agent</h3>
-        </div>
-        <div class="card-body">
-            <h4 class="card-title">{{ agent.get_full_name }}</h4>
+    <div class="row">
+        <div class="col-md-4">
+            {% if agent.userprofile.profile_picture %}
+                <img src="{{ agent.userprofile.profile_picture.url }}" class="img-fluid" alt="{{ agent.get_full_name }}">
+            {% endif %}
+            <h3>{{ agent.get_full_name }}</h3>
+            <p>{{ agent.userprofile.agency_name }}</p>
             <p>Email: {{ agent.email }}</p>
-            <p>Phone: {{ agent.profile.phone }}</p> <!-- Ensure User has a phone field or adjust accordingly -->
-            <p>Address: {{ agent.profile.address }}</p>
+            <p>Phone: {{ agent.userprofile.phone_number }}</p>
+            <p>Address: {{ agent.userprofile.address }}</p>
+            <p>{{ agent.userprofile.bio }}</p>
+            <a href="mailto:{{ agent.email }}" class="btn btn-primary">Email Agent</a>
         </div>
     </div>
 </div>

@@ -12,5 +12,5 @@ urlpatterns = [
     path('<int:pk>/delete/', ListingDeleteView.as_view(), name='delete'),
     path('search/', SearchView.as_view(), name='search'),
     path('<int:pk>/contact/', ContactAgentView.as_view(), name='contact_agent'),
-    path('<int:pk>/contact/', ContactAgentView.as_view(), name='contact_agent'),
+
 ]

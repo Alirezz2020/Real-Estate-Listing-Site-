@@ -1,20 +1,51 @@
-{% extends 'base.html' %}
-{% block content %}
-<div class="container">
-    <h1>Search Results</h1>
-    {% if listings %}
-        {% for listing in listings %}
-            <div class="card mb-4">
-                <img src="{{ listing.main_image.url }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>{{ listing.title }}</h5>
-                    <p>{{ listing.city }}, {{ listing.address }}</p>
-                    <a href="{% url 'listings:detail' listing.id %}" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>No listings found matching your query.</p>
-    {% endif %}
-</div>
-{% endblock %}
+<form method="get" class="mb-4">
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="q" placeholder="Search city/address" value="{{ request.GET.q }}">
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="min_price" placeholder="Min Price" value="{{ min_price }}">
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="max_price" placeholder="Max Price" value="{{ max_price }}">
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="bedrooms" placeholder="Bedrooms" value="{{ bedrooms }}">
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="bathrooms" placeholder="Bathrooms" value="{{ bathrooms }}">
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+{% if listings %}
+    {% for listing in listings %}
+        <!-- Display listing cards -->
+    {% endfor %}
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %}
+            {% for num in paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ num }}">{{ num }}</a>
+                </li>
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% else %}
+    <p>No listings found.</p>
+{% endif %}

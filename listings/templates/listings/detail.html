@@ -65,11 +65,11 @@
                     <div class="d-flex align-items-center mb-3">
                         <img src="https://picsum.photos/80/80" class="rounded-circle me-2" alt="Agent Photo">
                         <div>
-                            <h6 class="mb-0">{{ listing.agent.get_full_name }}</h6>
+                            <h6 class="mb-0">{{ listing.phone_number }}</h6>
                             <small class="text-muted">Realtor</small>
                         </div>
                     </div>
-                    <a  href="{% url 'listings:contact_agent' listing.id %}" class="btn btn-primary btn-sm w-100">Contact Agent</a>
+
                 </div>
             </div>
 

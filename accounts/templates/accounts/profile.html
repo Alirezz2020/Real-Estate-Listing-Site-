@@ -16,8 +16,13 @@
   </div>
   <div class="profile-details">
     <h2>{{ object.first_name }} {{ object.last_name }}</h2>
+    <h2>{{ object.contact_email }}</h2>
+    <h2>{{ object.phone_number }}</h2>
+    <h2>{{ object.agency_name }}</h2>
+    <h2>{{ object.address }}</h2>
 
   </div>
+
   <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary btn-edit">Edit Profile</a>
 </div>
 

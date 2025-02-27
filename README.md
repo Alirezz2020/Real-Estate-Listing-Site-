@@ -1,3 +1,27 @@
+# Real Estate Listing Site
+
+A Django-powered real estate listing site where users can create, view, and search for property listings.
+
+## Features
+- User authentication (login, register)
+- Create, update, and delete listings
+- Search and filter listings by city, price, bedrooms, and bathrooms
+- Display agent contact information directly on listing detail pages
+- Pagination for listings and search results
+
+## Technologies Used
+- Django 4.x
+- PostgreSQL (or SQLite for development)
+- Bootstrap 5 for styling
+- HTML, CSS, JavaScript
+
+## Getting Started
+
+### Prerequisites
+- Python 3.8+
+- pip
+- virtualenv (optional but recommended)
+
 
 
 ## Installation
