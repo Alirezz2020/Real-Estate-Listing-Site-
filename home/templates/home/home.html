@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Find Your Dream Home{% endblock %}
+
+{% block content %}
+<header class="hero text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Your Real Estate Journey Starts Here</h1>
+        <p class="lead">Explore top listings from trusted agents</p>
+        <a href="{% url 'listings:index' %}" class="btn btn-primary btn-lg">Browse Listings</a>
+    </div>
+</header>
+
+<section class="featured pt-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Featured Listing</h2>
+        <div class="row">
+            {% for listing in featured_listings %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card shadow">
+                    <img src="{{ listing.main_image.url }}" class="card-img-top" alt="Featured Listing">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ listing.title }}</h5>
+                        <p class="card-text">{{ listing.city }}, {{ listing.address }}</p>
+                        <a href="{% url 'listings:detail' listing.id %}" class="btn btn-secondary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="search bg-light py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Find Your Perfect Home</h2>
+        <form method="get" action="{% url 'listings:search' %}" class="form-inline justify-content-center">
+            <div class="input-group">
+                <input type="text" class="form-control form-control-lg" name="q" placeholder="Search by city or address">
+                <button class="btn btn-primary btn-lg" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="testimonials text-center py-5">
+    <div class="container">
+        <h2 class="mb-5">What Our Clients Say</h2>
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="card mx-auto shadow" style="max-width: 30rem;">
+                        <div class="card-body">
+                            <p class="card-text">“This platform helped us find our dream home effortlessly”</p>
+                            <p class="text-muted">- Happy Client</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchForm = document.querySelector('.search form');
+        const searchButton = searchForm.querySelector('button');
+
+        searchButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            searchForm.submit();
+        });
+    });
+</script>
+
+<style>
+    .hero {
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url({% static 'images/hero.jfif' %});
+        background-position: center;
+        background-size: cover;
+        min-height: 60vh;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .testimonials .card {
+        background: transparent;
+        border: none;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Search Results</h1>
+    <form method="get" action="{% url 'listings:search' %}" id="search-form">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="q" placeholder="Search listings..." value="{{ query }}">
+            <button class="search-btn btn btn-primary">Search</button>
+        </div>
+    </form>
+    {% for listing in listings %}
+        <!-- Listing card -->
+    {% endfor %}
+{% endblock %}
